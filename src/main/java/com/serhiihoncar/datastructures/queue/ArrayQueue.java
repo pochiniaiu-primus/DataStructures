@@ -1,24 +1,24 @@
 package com.serhiihoncar.datastructures.queue;
 
 /**
- void enqueue(Object value);
-
- //element()
- Object dequeue();
-
- int size();
-
- boolean isEmpty();
-
- boolean contains(Object value);
-
- void clear();
-
- //size don't change, get element and don't delete this element from queue
- Object peek();
-
- //[A, B, C] if size=3
- String toString();
+ * void enqueue(Object value);
+ * <p>
+ * //element()
+ * Object dequeue();
+ * <p>
+ * int size();
+ * <p>
+ * boolean isEmpty();
+ * <p>
+ * boolean contains(Object value);
+ * <p>
+ * void clear();
+ * <p>
+ * //size don't change, get element and don't delete this element from queue
+ * Object peek();
+ * <p>
+ * //[A, B, C] if size=3
+ * String toString();
  */
 //FIFO
 public class ArrayQueue implements Queue {
@@ -28,12 +28,16 @@ public class ArrayQueue implements Queue {
     public ArrayQueue() {
         array = new Object[10];
     }
+
     public ArrayQueue(int initialCapacity) {
         array = new Object[initialCapacity];
     }
 
     @Override
     public void enqueue(Object value) {
+        if (value == null) {
+            throw new NullPointerException("Nulls are not supported!");
+        }
         ensureCapacity();
         array[size] = value;
         size++;
@@ -55,7 +59,7 @@ public class ArrayQueue implements Queue {
             throw new IllegalStateException("Queue is empty!");
         }
         Object result = array[0];
-        for (int i = 0; i < size; i++) {//size-1
+        for (int i = 0; i < size - 1; i++) {
             array[i] = array[i + 1];
         }
         size--;
@@ -85,6 +89,9 @@ public class ArrayQueue implements Queue {
 
     @Override
     public void clear() {
+        for (int i = 0; i < size; i++) {
+            array[i] = null;
+        }
         size = 0;
     }
 
@@ -96,12 +103,13 @@ public class ArrayQueue implements Queue {
         Object result = array[0];
         return result;
     }
+
     @Override
     public String toString() {
         StringBuilder stringBuilderResult = new StringBuilder();
         for (int i = 0; i < size; i++) {
             stringBuilderResult.append(array[i]);
-            if (i < size - 1 ) {
+            if (i < size - 1) {
                 stringBuilderResult.append(", ");
             }
         }
