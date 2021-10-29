@@ -2,11 +2,19 @@ package com.serhiihoncar.datastructures.queue;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayQueueTest {
+//    ArrayQueue arrayQueue;
+//
+//    @BeforeEach
+//    public void before() {
+//        arrayQueue = new ArrayQueue();
+//    }
 
     @Test
     public void testEnqueueAndDequeueWorkCorrectAndChangeSize() {
@@ -110,7 +118,7 @@ public class ArrayQueueTest {
     }
 
     @Test
-    public void testAfterEnqueueToArrayQueueIsEmptyReturnFalse(){
+    public void testAfterEnqueueToArrayQueueIsEmptyReturnFalse() {
         ArrayQueue arrayQueue = new ArrayQueue();
         arrayQueue.enqueue("A");
         assertFalse(arrayQueue.isEmpty());
@@ -228,5 +236,4 @@ public class ArrayQueueTest {
         ArrayQueue arrayQueue = new ArrayQueue();
         assertEquals("[]", arrayQueue.toString());
     }
-
 }
