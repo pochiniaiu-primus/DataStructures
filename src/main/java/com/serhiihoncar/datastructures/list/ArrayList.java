@@ -1,5 +1,7 @@
 package com.serhiihoncar.datastructures.list;
 
+import java.util.StringJoiner;
+
 /**
  * // add value to the end of the list
  * void add(Object value);
@@ -58,22 +60,7 @@ public class ArrayList implements List {
         if (value == null) {
             throw new NullPointerException("You can't add null as element");
         }
-        if (array.length - size <= 12) {
-            ensureCapacity();
-        }
-        array[size] = value;
-//        array[size] = value;
-        size++;
-    }
-
-    private void ensureCapacity() {
-        if (array.length == size) {
-            Object[] newArray = new Object[(int) (array.length * 1.5)];
-            for (int i = 0; i < array.length; i++) {
-                newArray[i] = array[i];
-            }
-            array = newArray;
-        }
+        add(value, size);
     }
 
     @Override
@@ -90,10 +77,21 @@ public class ArrayList implements List {
         size++;
     }
 
+    private void ensureCapacity() {
+        if (size == array.length) {
+            Object[] newArray = new Object[(int) (array.length * 1.5)];
+            for (int i = 0; i < size; i++) {
+                newArray[i] = array[i];
+            }
+            array = newArray;
+        }
+    }
+
     @Override
     public Object remove(int index) {
         if (index < size) {
             Object obj = array[index];
+            //because of memory leak
             array[index] = null;
             int temp = index;
             while (temp < size) {
@@ -104,7 +102,7 @@ public class ArrayList implements List {
             size--;
             return obj;
         } else {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException("Index " + index + " bigger than size " + size + " of the ArrayList");
         }
     }
 
@@ -115,7 +113,6 @@ public class ArrayList implements List {
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
-
     }
 
     // we can set value by index between [0, size - 1]
@@ -151,13 +148,7 @@ public class ArrayList implements List {
 
     @Override
     public boolean contains(Object value) {
-        for (int i = 0; i < size; i++) {
-            Object valueInArrayList = array[i];
-            if (value.equals(valueInArrayList)) {
-                return true;
-            }
-        }
-        return false;
+        return indexOf(value) != -1;
     }
 
     @Override
@@ -182,15 +173,14 @@ public class ArrayList implements List {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
+        StringJoiner stringJoiner =
+                new StringJoiner(", ", "[", "]");
         for (int i = 0; i < size; i++) {
-            result.append(array[i]);
+            stringJoiner.add(array[i].toString());
             if (i == size - 1) {
                 break;
-            } else {
-                result.append(", ");
             }
         }
-        return "[" + result + "]";
+        return stringJoiner.toString();
     }
 }

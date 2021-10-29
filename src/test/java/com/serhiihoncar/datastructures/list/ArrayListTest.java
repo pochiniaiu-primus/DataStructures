@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayListTest {
+
     @Test
     public void testAddShouldReturnSizeOfArrayList() {
         ArrayList arrayList = new ArrayList();
@@ -52,6 +53,24 @@ public class ArrayListTest {
         arrayList.add("C");
         Assertions.assertThrows(NullPointerException.class, () -> {
             arrayList.set(null, 0);
+        });
+    }
+
+    @Test
+    public void testThrowIndexOutOfBoundsExceptionWhenWeUseBiggerThanOne() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add("A");
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            arrayList.add("B", 2);
+        });
+    }
+
+    @Test
+    public void testThrowIndexOutOfBoundsExceptionWhenWeUseLessThanZero() {
+        ArrayList arrayList = new ArrayList();
+        arrayList.add("A");
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+            arrayList.add("B", -1);
         });
     }
 
@@ -236,7 +255,7 @@ public class ArrayListTest {
 //        arrayList.add("С");
 //        arrayList.set("D", 2);
 //        assertEquals("[A, B, D, C]", arrayList.toString());
-//    }
+//
 
     @Test
     public void testClearSizeIsEmptyWorkCorrect() {
