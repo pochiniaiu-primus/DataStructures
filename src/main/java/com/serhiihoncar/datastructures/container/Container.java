@@ -14,7 +14,6 @@ public interface Container extends Iterable<Object>{
     String toString();
 
     // Returns an iterator over elements.
-    // Iterator must implements the remove method.
+    // Iterator implements the remove method.
     Iterator<Object> iterator();
-
 }

@@ -46,7 +46,7 @@ import java.util.StringJoiner;
  * // [A, B, C]
  * String toString();
  */
-public class ArrayList implements List {
+public class ArrayList implements Array {
     private final int INIT_SIZE = 16;
     private Object[] array;
     private int size = 0;

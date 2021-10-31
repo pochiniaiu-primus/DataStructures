@@ -269,4 +269,3 @@ public class ArrayListTest {
         assertEquals(0, arrayList.size());
     }
 }
-

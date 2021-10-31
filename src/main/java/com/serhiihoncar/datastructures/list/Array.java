@@ -1,6 +1,6 @@
 package com.serhiihoncar.datastructures.list;
 
-public interface List {
+public interface Array {
         // add value to the end of the list
         void add(Object value);
 
