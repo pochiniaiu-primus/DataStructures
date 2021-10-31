@@ -70,13 +70,22 @@ public class LinkedListImplTest {
         assertEquals("[B, A]", linkedList.toString());
     }
 
-    //    @Test
-//    public void testSearchShouldReturnRightBoolean() {
-//        LinkedListImpl linkedList = new LinkedListImpl();
-//        linkedList.addFirst("A");
-//        linkedList.addFirst("B");
-//        assertEquals(true, linkedList.search("B"));
-//    }
+    @Test
+    public void testSearchShouldReturnRightElementIfItExistInLinkedList() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.addFirst("A");
+        linkedList.addFirst("B");
+        assertEquals("B", linkedList.search("B"));
+    }
+
+    @Test
+    public void testSearchShouldReturnNullIfElementDontExistInElement() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.addFirst("A");
+        linkedList.addFirst("B");
+        assertEquals(null, linkedList.search("C"));
+    }
+
     @Test
     public void testRemoveElementShouldReturnRightLinkedList() {
         LinkedListImpl linkedList = new LinkedListImpl();
@@ -84,5 +93,45 @@ public class LinkedListImplTest {
         linkedList.addFirst("B");
         linkedList.remove("A");
         assertEquals("[B]", linkedList.toString());
+    }
+
+    @Test
+    public void testRemoveElementShouldReturnFalseIfHeadDontHaveAnyValue() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        assertEquals(false, linkedList.remove("A"));
+    }
+    @Test
+    public void testRemoveHeadValueElementShouldReturnTrueIfHeadHaveElement() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.addFirst("A");
+        assertEquals(true, linkedList.remove("A"));
+    }
+
+    @Test
+    public void testRemoveFirstElementShouldReturnRightLinkedList() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.addFirst("A");
+        linkedList.addFirst("B");
+        linkedList.addFirst("C");
+        linkedList.removeFirst();
+        assertEquals("[B, A]", linkedList.toString());
+    }
+
+    @Test
+    public void testIsEmptyShouldReturnTrueIfLinkedListEmpty() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        assertEquals(true, linkedList.isEmpty());
+    }
+
+//    @Test
+//    public void testGetShouldReturnZeroIfElementExistInLinkedList() {
+//        LinkedListImpl linkedList = new LinkedListImpl();
+//        assertEquals(0, linkedList.get("A"));
+//    }
+
+    @Test
+    public void testToStringShouldReturnEmptyTLinkedListEmpty() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        assertEquals("[]", linkedList.toString());
     }
 }

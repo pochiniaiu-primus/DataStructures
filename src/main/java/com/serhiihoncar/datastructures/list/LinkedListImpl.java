@@ -6,13 +6,13 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 public class LinkedListImpl implements ListForLinkedList {
-    private Node head;//ref to the next object
-    private Node tail;//ref to the previews object
+    private Node head;//ref to the head
+    private Node tail;//ref to the tail
     int size = 0;
 
     private static class Node {
         private Object value;
-        private Node next;
+        private Node next;//ref to the next element
 
         public Node(Object element) {
             this.value = element;
@@ -24,12 +24,17 @@ public class LinkedListImpl implements ListForLinkedList {
         this.head = this.tail = null;
     }
 
+    public boolean isEmpty() {
+        return head == null;
+    }
+
     @Override
     public void clear() {
         while (head.next != null) {
             head = head.next;
         }
         head.value = null;
+        tail.value = null;
         size = 0;
     }
 
@@ -50,24 +55,38 @@ public class LinkedListImpl implements ListForLinkedList {
 
     @Override
     public void addFirst(Object element) {
-        Node firstNode = new Node(element);
-        firstNode.next = head;
-        head = firstNode;
+        Node newNode = new Node(element);
+        if (isEmpty()) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
         size++;
     }
 
     @Override
     public void addLast(Object element) {
-        size++;
-        if (head == null) {
-            head = new Node(element);
+//        size++;
+//        if (head == null) {
+//            head = new Node(element);
+//        } else {
+//            Node node = head;
+//            while (node.next != null) {
+//                node = node.next;
+//            }
+//            node.next = new Node(element);
+//        }
+        Node newNode = new Node(element);
+        if (isEmpty()) {
+            head = newNode;
+            tail = newNode;
         } else {
-            Node node = head;
-            while (node.next != null) {
-                node = node.next;
-            }
-            node.next = new Node(element);
+            tail.next = newNode;
+            tail = newNode;
         }
+        size++;
     }
 
     @Override
@@ -93,6 +112,25 @@ public class LinkedListImpl implements ListForLinkedList {
             current.next = null;
             size--;
         }
+    }
+
+    public int get(Object o) {
+        if (isEmpty()) {
+            return -1;
+        }
+        if (head.value == o) {
+            return 0;//the element that we looking at is first
+        }
+        Node currentNode = head;
+        int result = 0;
+        while (currentNode.next != null) {
+            ++result;
+            if (currentNode.next.value == o) {
+                return result;
+            }
+            currentNode=currentNode.next;
+        }
+        return -1;
     }
 
     @Override
@@ -193,7 +231,8 @@ public class LinkedListImpl implements ListForLinkedList {
 
         @Override
         public Object next() {
-            if (position == size) throw new NoSuchElementException();
+            if (position == size)
+                throw new NoSuchElementException();
             Node node = head;
             position++;
             for (int i = 1; i < position; i++) {
