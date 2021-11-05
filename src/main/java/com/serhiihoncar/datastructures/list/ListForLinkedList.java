@@ -4,6 +4,8 @@ import com.serhiihoncar.datastructures.container.Container;
 
 public interface ListForLinkedList extends Container {
 
+    // Inserts the specified element at the index.
+    void add(Object value, int index);
 
     // Inserts the specified element at the beginning.
     void addFirst(Object element);

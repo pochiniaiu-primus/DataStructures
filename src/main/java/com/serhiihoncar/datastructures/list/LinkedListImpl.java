@@ -13,10 +13,12 @@ public class LinkedListImpl implements ListForLinkedList {
     private static class Node {
         private Object value;
         private Node next;//ref to the next element
+        private Node prev;
 
         public Node(Object element) {
             this.value = element;
             this.next = null;
+            this.prev = null;
         }
     }
 
@@ -64,6 +66,23 @@ public class LinkedListImpl implements ListForLinkedList {
             head = newNode;
         }
         size++;
+    }
+
+    @Override
+    public void add(Object value, int index) {
+        Node newNode = new Node(value);
+        if (size == 0) {
+            head = newNode;
+            tail = newNode;
+        } else if (index == size - 1) {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        } else if (index == 0) {
+            head.prev = newNode;
+            newNode.next = head;
+            head = newNode;
+        }
     }
 
     @Override
@@ -128,7 +147,7 @@ public class LinkedListImpl implements ListForLinkedList {
             if (currentNode.next.value == o) {
                 return result;
             }
-            currentNode=currentNode.next;
+            currentNode = currentNode.next;
         }
         return -1;
     }

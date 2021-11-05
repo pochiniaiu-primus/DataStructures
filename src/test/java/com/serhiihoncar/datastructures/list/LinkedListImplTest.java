@@ -13,6 +13,30 @@ public class LinkedListImplTest {
         linkedList.addFirst("B");
         assertEquals(2, linkedList.size());
     }
+    @Test
+    public void testAddToIndexZeroShouldReturnRightLinkedList() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.addFirst("A");
+        linkedList.addLast("B");
+        linkedList.add("C",0);
+        assertEquals("[C, A, B]", linkedList.toString());
+    }
+    @Test
+    public void testAddToLastIndexShouldReturnRightLinkedList() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.addFirst("A");
+        linkedList.addLast("B");
+        linkedList.addLast("C");
+        linkedList.addLast("D");
+        linkedList.add("E",3);
+        assertEquals("[A, B, C, D, E]", linkedList.toString());
+    }
+    @Test
+    public void testAddIsSizeZeroShouldReturnRightLinkedList() {
+        LinkedListImpl linkedList = new LinkedListImpl();
+        linkedList.add("A",0);
+        assertEquals("[A]", linkedList.toString());
+    }
 
     @Test
     public void testGetFirstShouldReturnRightFirstElement() {
